@@ -50,9 +50,9 @@ def check_esi_eligibility_domains():
     eligible_domains_result = []
 
     # In the future, I should probably make this async to really improve the performance :-)
-    for domain in domain_list:
+    for i, domain in enumerate(domain_list):
         # Add a debug message for convenience purpose
-        print(f"Now checking {domain}")
+        print(f"Now checking {domain}, {i} / {len(domain_list)}")
 
         # Hit the customer info endpoint
         esi_eligiblity_check = requests.post(MICROSOFT_ESI_CUSTOMERINFO_ENDPOINT, json={
@@ -78,7 +78,7 @@ def check_esi_eligibility_domains():
         elif esi_eligiblity_check.ok == False:
             eligible_domains_result.append({
                 "domain": domain,
-                "errorDescription": esi_eligiblity_check["description"]
+                "errorDescription": esi_eligiblity_check_json["description"]
             })
 
         # Wait a few seconds to prevent slamming the API too much
