@@ -50,6 +50,10 @@ def check_esi_eligibility_domains():
     eligible_domains_result = []
 
     for domain in domain_list:
+        # Add a debug message for convenience purpose
+        print(f"Now checking {domain}")
+
+        # Hit the customer info endpoint
         esi_eligiblity_check = requests.post(MICROSOFT_ESI_CUSTOMERINFO_ENDPOINT, json={
             "emailAddress": f"{EMAIL_PREFIX}@{domain}"
         })
@@ -69,7 +73,7 @@ def check_esi_eligibility_domains():
                 "esi": esi_eligiblity_check_json["esi"]
             })
 
-        # If the request fails, then we will log the issue into our results
+        # If the request fails, then we will log the error description into our results
         elif esi_eligiblity_check.ok == False:
             eligible_domains_result.append({
                 "domain": domain,
