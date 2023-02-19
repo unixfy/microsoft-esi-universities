@@ -1,6 +1,8 @@
 import requests
 import random
 import time
+import json
+
 # CONFIG
 
 # The Microsoft ESI customer info endpoint, should accept a POST request to check if a domain is an ESI customer
@@ -83,8 +85,9 @@ def check_esi_eligibility_domains():
 
         # Wait a few seconds to prevent slamming the API too much
         time.sleep(random.randint(1, 3))
-            
-    return eligible_domains_result
+
+    # Convert to Json before returning
+    return json.dumps(eligible_domains_result)
 
 print(check_esi_eligibility_domains())
 
