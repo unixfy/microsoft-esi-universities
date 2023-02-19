@@ -49,6 +49,7 @@ def check_esi_eligibility_domains():
     # Store eligible domains
     eligible_domains_result = []
 
+    # In the future, I should probably make this async to really improve the performance :-)
     for domain in domain_list:
         # Add a debug message for convenience purpose
         print(f"Now checking {domain}")
